@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Album Rating System</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				margin: 20px;
+			}
+			.album-form {
+				max-width: 500px;
+				margin: 0 auto;
+			}
+			input,
+			button {
+				margin: 10px 0;
+				padding: 10px;
+				width: 100%;
+			}
+			table {
+				width: 100%;
+				margin: 20px 0;
+			}
+			table,
+			th,
+			td {
+				border: 1px solid black;
+				border-collapse: collapse;
+			}
+			th,
+			td {
+				padding: 10px;
+			}
+			button {
+				background-color: #4caf50;
+				color: white;
+			}
+			.editable-input {
+				width: 100%;
+			}
+		</style>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div class="album-form">
+			<h1>Album Rating System</h1>
+			<label for="albumName">Album Name:</label>
+			<input type="text" id="albumName" placeholder="Enter album name" />
+
+			<h3>Add Songs</h3>
+			<label for="songName">Song Name:</label>
+			<input type="text" id="songName" placeholder="Enter song name" />
+
+			<label for="songDuration">Song Duration (mm:ss):</label>
+			<input
+				type="text"
+				id="songDuration"
+				placeholder="Enter duration (e.g., 4:58)"
+			/>
+
+			<label for="songRating">Song Rating (0-100):</label>
+			<input
+				type="number"
+				id="songRating"
+				min="0"
+				max="100"
+				placeholder="Enter rating"
+			/>
+
+			<label>
+				<input type="checkbox" id="favoriteCheckbox" />
+				Mark as Favorite of All Time
+			</label>
+
+			<button onclick="addSong()">Add Song</button>
+
+			<h3>Songs in Album</h3>
+			<table id="songTable">
+				<thead>
+					<tr>
+						<th>Song Name</th>
+						<th>Duration (min:sec)</th>
+						<th>Rating</th>
+						<th>Favorite</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- Song entries will be inserted here -->
+				</tbody>
+			</table>
+
+			<button onclick="calculateAlbumRating()">Calculate Album Rating</button>
+			<h3 id="albumRatingResult">Album Rating: Not yet calculated</h3>
+			<h3 id="songRatingsResult">Song Ratings (Weighted):</h3>
+			<ul id="songWeightedRatings">
+				<!-- Weighted song ratings will appear here -->
+			</ul>
+		</div>
+
+		<script>
+			let songs = [];
+
+			// Function to convert "mm:ss" format to total seconds
+			function convertDurationToSeconds(duration) {
+				const parts = duration.split(":");
+				const minutes = parseInt(parts[0]);
+				const seconds = parseInt(parts[1]);
+				return minutes * 60 + seconds;
+			}
+
+			// Function to convert seconds back to "mm:ss" format
+			function convertSecondsToDuration(seconds) {
+				const minutes = Math.floor(seconds / 60);
+				const remainingSeconds = seconds % 60;
+				return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+			}
+
+			function addSong() {
+				const songName = document.getElementById("songName").value;
+				const songDuration = document.getElementById("songDuration").value;
+				const songRating = parseInt(
+					document.getElementById("songRating").value
+				);
+				const isFavorite = document.getElementById("favoriteCheckbox").checked;
+
+				if (
+					songName &&
+					songDuration &&
+					songRating >= 0 &&
+					songRating <= 100 &&
+					songDuration.includes(":")
+				) {
+					songs.push({
+						name: songName,
+						duration: convertDurationToSeconds(songDuration),
+						rating: songRating,
+						favorite: isFavorite,
+					});
+					updateSongTable();
+				} else {
+					alert("Please fill out all fields with valid values!");
+				}
+
+				// Clear input fields
+				document.getElementById("songName").value = "";
+				document.getElementById("songDuration").value = "";
+				document.getElementById("songRating").value = "";
+				document.getElementById("favoriteCheckbox").checked = false;
+			}
+
+			function updateSongTable() {
+				const tbody = document.querySelector("#songTable tbody");
+				tbody.innerHTML = ""; // Clear table body
+				songs.forEach((song, index) => {
+					const row = `
+                <tr>
+                    <td><input type="text" class="editable-input" value="${
+											song.name
+										}" onchange="editSong(${index}, 'name', this.value)"></td>
+                    <td><input type="text" class="editable-input" value="${convertSecondsToDuration(
+											song.duration
+										)}" onchange="editSong(${index}, 'duration', this.value)"></td>
+                    <td><input type="number" class="editable-input" min="0" max="100" value="${
+											song.rating
+										}" onchange="editSong(${index}, 'rating', this.value)"></td>
+                    <td><input type="checkbox" ${
+											song.favorite ? "checked" : ""
+										} onchange="editSong(${index}, 'favorite', this.checked)"></td>
+                    <td><button onclick="deleteSong(${index})">Delete</button></td>
+                </tr>
+            `;
+					tbody.innerHTML += row;
+				});
+			}
+
+			function editSong(index, field, value) {
+				if (field === "duration") {
+					if (!value.includes(":")) {
+						alert("Please enter a valid duration (mm:ss).");
+						return;
+					}
+					songs[index][field] = convertDurationToSeconds(value);
+				} else if (field === "favorite") {
+					songs[index][field] = value;
+				} else {
+					songs[index][field] = value;
+				}
+			}
+
+			function deleteSong(index) {
+				songs.splice(index, 1);
+				updateSongTable();
+			}
+
+			function calculateAlbumRating() {
+				let totalDuration = 0;
+				let weightedSum = 0;
+				const songRatingsResult = [];
+
+				songs.forEach((song) => {
+					totalDuration += song.duration;
+				});
+
+				songs.forEach((song) => {
+					let songRating = song.rating;
+					if (song.favorite) {
+						songRating *= 1.1; // Increase rating by 10% for favorite songs
+					}
+					const weight = song.duration / totalDuration;
+					weightedSum += songRating * weight;
+					songRatingsResult.push({
+						name: song.name,
+						weightedRating: (songRating * weight).toFixed(2),
+					});
+				});
+
+				if (weightedSum > 100) {
+					// Display album rating
+					document.getElementById(
+						"albumRatingResult"
+					).innerText = `Album Rating: 100 (${weightedSum.toFixed(2)})`;
+				} else {
+					document.getElementById(
+						"albumRatingResult"
+					).innerText = `Album Rating: ${weightedSum.toFixed(2)}`;
+				}
+
+				// Display individual song ratings
+				const songWeightedRatingsList = document.getElementById(
+					"songWeightedRatings"
+				);
+
+				songWeightedRatingsList.innerHTML = ""; // Clear previous list
+				songRatingsResult.forEach((song) => {
+					const listItem = document.createElement("li");
+					listItem.textContent = `${song.name}: Weighted Rating = ${song.weightedRating}`;
+					songWeightedRatingsList.appendChild(listItem);
+				});
+			}
+		</script>
+		<footer>
+			<p>Kaleb Lizano</p>
+		</footer>
+	</body>
+</html>
