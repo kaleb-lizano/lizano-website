@@ -4,23 +4,43 @@ const apiGatewayUrl =
 
 // Function to search for a song by interacting with your Lambda function via API Gateway
 async function searchSong() {
-	const songName = document.getElementById("songName").value;
-	const response = await fetch(
-		`${apiGatewayUrl}?q=${encodeURIComponent(songName)}`
-	);
+	try {
+		const songName = document.getElementById("songName").value;
+		console.log("Searching for song:", songName); // Log the song name
 
-	if (!response.ok) {
+		const response = await fetch(
+			`${apiGatewayUrl}?q=${encodeURIComponent(songName)}`
+		);
+
+		if (!response.ok) {
+			console.error("Error response from API:", response.statusText);
+			document.getElementById("results").innerHTML =
+				"<p>Error fetching song data. Please try again.</p>";
+			return;
+		}
+
+		const data = await response.json();
+		console.log("API response data:", data); // Log the full response data
+
+		// Check if tracks data is present and is an array
+		if (
+			data.tracks &&
+			Array.isArray(data.tracks.items) &&
+			data.tracks.items.length > 0
+		) {
+			const song = data.tracks.items[0];
+			console.log("First song data:", song); // Log the first song data
+			displaySongMetadata(song); // Call function to display the metadata
+		} else {
+			console.warn("No tracks found in API response:", data);
+			document.getElementById("results").innerHTML =
+				"<p>No results found. Please try a different search.</p>";
+		}
+	} catch (error) {
+		// Catch any other errors, such as network issues
+		console.error("Error during song search:", error);
 		document.getElementById("results").innerHTML =
-			"<p>Error fetching song data.</p>";
-		return;
-	}
-
-	const data = await response.json();
-	if (data.tracks && data.tracks.items.length > 0) {
-		const song = data.tracks.items[0];
-		displaySongMetadata(song);
-	} else {
-		document.getElementById("results").innerHTML = "<p>No results found.</p>";
+			"<p>An error occurred while searching for the song. Please try again later.</p>";
 	}
 }
 
