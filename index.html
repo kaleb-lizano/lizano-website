@@ -4,89 +4,72 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Meet Kaleb Lizano</title>
-		<style>
-			body {
-				font-family: Arial, sans-serif;
-				background-color: #f4f4f9;
-				margin: 0;
-				padding: 0;
-				color: #333;
-			}
-			.container {
-				max-width: 1000px;
-				margin: 50px auto;
-				padding: 20px;
-				text-align: center;
-			}
-			h1 {
-				font-size: 3rem;
-				margin-bottom: 10px;
-			}
-			.introduction {
-				font-size: 1.2rem;
-				color: #555;
-			}
-			.project-description {
-				font-size: 1.1rem;
-				color: #555;
-			}
-			ul {
-				list-style-type: none;
-				padding: 0;
-			}
-			li {
-				margin: 20px 0;
-			}
-			a {
-				text-decoration: none;
-				color: #0066cc;
-				font-size: 1.5rem;
-				transition: color 0.3s ease;
-			}
-			a:hover {
-				color: #003366;
-			}
-			.project-title {
-				font-weight: bold;
-			}
-		</style>
 		<link rel="stylesheet" href="style.css" />
 	</head>
 	<body>
-		<div class="container">
-			<h1>Kaleb Lizano</h1>
-			<h4>ITCR | Tecnológico de Costa Rica</h4>
-			<p class="introduction">
-				Hello, my name is Kaleb Lizano, and I'm currently studying to become a
-				profesional developer.
-			</p>
-			<div>
-				<h2>My Projects</h2>
-				<ul>
-					<li>
-						<a href="/album-rating/" class="project-title">Album Rating</a>
-					</li>
-					<!-- Add more projects here -->
-				</ul>
-				<p class="project-description">
-					Some of my biggest hobbies include listening to music, creating music,
-					and studying music, which is why my first project was to create an
-					album rating system.
-				</p>
-				<p class="project-description">
-					I always felt like when I attempted to score an album it would feel a
-					bit inconsistent, so I decided to use my developer skills to create a
-					systematic way to score an album (and each respective songs).
+		<div class="root">
+			<div class="introduction">
+				<h1 id="name">Kaleb Lizano</h1>
+				<h4>ITCR | Tecnológico de Costa Rica</h4>
+				<p>
+					Hello, my name is Kaleb Lizano, and I'm currently studying to become a
+					professional developer.
 				</p>
 			</div>
+			<div class="project-list">
+				<h2 class="project-title">My Projects</h2>
+				<div id="custom-alert" class="custom-alert">
+					<span id="alert-message">Work In Progress</span>
+					<button id="close-alert" class="close-alert">&times;</button>
+				</div>
+				<div class="project-grid">
+					<div class="project-item" id="project-album-rating">
+						<a href="/album-rating/" class="project-title">Album Rating</a>
+						<p class="project-description">
+							Some of my biggest hobbies include listening to music, creating
+							music, and studying music, which is why my first project was to
+							create an album rating system.
+						</p>
+						<p class="project-description">
+							I always felt like when I attempted to score an album it would
+							feel a bit inconsistent, so I decided to use my developer skills
+							to create a systematic way to score an album (and each respective
+							song).
+						</p>
+					</div>
+					<div class="project-item" id="project-song-battle">
+						<a href="/song-battle/" class="project-title">Song Battle</a>
+						<p class="project-description">
+							Further working on perfecting my way to rate the music I enjoy, I
+							decided to develop a way to compare the songs I enjoy the most and
+							turned it into a sort of game.
+						</p>
+					</div>
+					<div class="project-item" id="project-art-of-tanks">
+						<a class="project-title">Art of Tanks</a>
+						<p class="project-description">Fun little Java game about tanks.</p>
+					</div>
+					<div class="project-item" id="project-song-search">
+						<a href="/song-search/" class="project-title"
+							>Spotify Song Search</a
+						>
+						<p class="project-description">
+							Random mini project to learn how to work the Spotify API.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="appendix">
+				<footer>
+					<p>
+						Hopefully by the time another human sees this it'll be a much more
+						interesting website
+					</p>
+					<p>Kaleb Lizano</p>
+					<p>24.09.10.1020</p>
+				</footer>
+			</div>
 		</div>
-		<footer>
-			<p>
-				Hopefully by the time another human sees this it'll be a much more
-				interesting website
-			</p>
-			<p>Kaleb Lizano</p>
-			<p>24.09.10.1020</p>
-		</footer>
+		<script src="app.js"></script>
 	</body>
 </html>

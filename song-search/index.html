@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Spotify Song Search</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				text-align: center;
+				margin: 50px;
+				background-color: #f0f0f5;
+			}
+			h1 {
+				color: #003366;
+			}
+			input[type="text"] {
+				padding: 10px;
+				width: 300px;
+				font-size: 1rem;
+			}
+			button {
+				padding: 10px 20px;
+				background-color: #003366;
+				color: white;
+				border: none;
+				cursor: pointer;
+				font-size: 1rem;
+			}
+			button:hover {
+				background-color: #003366;
+			}
+			#results {
+				margin-top: 30px;
+			}
+			.metadata {
+				padding: 10px;
+				border: 1px solid #ddd;
+				background-color: #fff;
+				max-width: 500px;
+				margin: 20px auto;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Spotify Song Search</h1>
+		<input type="text" id="songName" placeholder="Enter song name" />
+		<button onclick="searchSong()">Search</button>
+
+		<div id="results"></div>
+
+		<script src="app.js"></script>
+	</body>
+</html>

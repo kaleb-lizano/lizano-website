@@ -1,0 +1,69 @@
+<html>
+	<style>
+		/* Container for the entire card */
+		.project-card {
+			perspective: 1000px; /* Creates a 3D space for the card flip effect */
+			width: 300px; /* Fixes width to prevent shifting */
+			height: 300px; /* Fixes height to prevent shifting */
+			margin: 20px;
+			position: relative; /* Ensures correct stacking of card sides */
+		}
+
+		/* Inner container holding both front and back of the card */
+		.card-inner {
+			position: relative;
+			width: 100%;
+			height: 100%;
+			transition: transform 0.8s; /* Smooth transition for the flip */
+			transform-style: preserve-3d; /* Keeps both sides in the 3D space */
+		}
+
+		/* The front and back sides of the card */
+		.card-front,
+		.card-back {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			backface-visibility: hidden; /* Hides the reverse side when the card flips */
+			border-radius: 10px;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			text-align: center;
+			background: rgba(0, 0, 0, 0.5); /* Initial background color */
+			color: white;
+			top: 0; /* Ensure it stays aligned within the container */
+			left: 0; /* Ensure it stays aligned within the container */
+		}
+
+		/* Wrapper for content with padding */
+		.card-content {
+			padding: 30px; /* Adds padding only inside the content, not affecting card size */
+		}
+
+		/* Style for the front of the card */
+		.card-front {
+			background: rgba(0, 0, 0, 0.25); /* You can adjust colors here */
+		}
+
+		/* Style for the back of the card */
+		.card-back {
+			background: rgba(0, 0, 0, 0.25); /* You can adjust colors here */
+			transform: rotateY(180deg); /* Initially flipped to be hidden */
+		}
+
+		/* When the card is flipped */
+		.project-card.flipped .card-inner {
+			transform: rotateY(180deg); /* Flips the card */
+		}
+		/* 
+      document.querySelectorAll(".project-card").forEach((card) => {
+        card.addEventListener("contextmenu", function (event) {
+          event.preventDefault(); // Prevent the default right-click context menu
+          this.classList.toggle("flipped"); // Flip the card
+        });
+      });
+    */
+	</style>
+</html>

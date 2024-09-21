@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Song Battle</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				text-align: center;
+				margin: 50px;
+				background-color: #f0f0f5;
+			}
+			.song-container {
+				display: flex;
+				justify-content: space-around;
+				margin: 20px 0;
+			}
+			.song {
+				border: 1px solid #ccc;
+				padding: 20px;
+				background-color: #fff;
+				width: 45%;
+			}
+			button {
+				padding: 10px 20px;
+				background-color: #003366;
+				color: white;
+				border: none;
+				cursor: pointer;
+				font-size: 1rem;
+			}
+			button:hover {
+				background-color: #003366;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Song Battle</h1>
+		<p id="results"></p>
+		<div class="song-container" id="songs">
+			<!-- Song cards -->
+		</div>
+
+		<script src="app.js"></script>
+	</body>
+</html>
