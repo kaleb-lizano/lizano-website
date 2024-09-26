@@ -111,9 +111,10 @@ a:hover {
 }
 .project-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-	gap: 30px;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: 75px;
 	justify-items: center;
+	align-items: center;
 	padding: 20px;
 	margin: 0 auto;
 }
