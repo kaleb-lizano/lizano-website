@@ -1,0 +1,35 @@
+body {
+	font-family: Arial, sans-serif;
+}
+
+.category {
+	margin-bottom: 20px;
+}
+
+.nominee {
+	margin-left: 20px;
+}
+
+.play-button {
+	color: blue;
+	cursor: pointer;
+}
+
+.metadata {
+	margin-top: 20px;
+	padding: 10px;
+	border: 1px solid #ddd;
+	display: none;
+}
+
+.category-description {
+	font-style: italic;
+	margin-bottom: 10px;
+}
+
+.credits {
+	margin-top: 5px;
+	padding-left: 20px;
+	font-size: 0.9em;
+	color: #555;
+}
