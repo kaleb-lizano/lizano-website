@@ -1,13 +1,13 @@
 const awsSpotifyFunctionUrl =
 	"https://mmjwhf9u0l.execute-api.us-east-2.amazonaws.com/202409181151/search"; // Your Spotify search function URL
 
-const grammyLoaderFunctionUrl =
-	"https://o87toyrqdb.execute-api.us-east-2.amazonaws.com/main";
+const scraperLambdaUrl =
+	"https://o87toyrqdb.execute-api.us-east-2.amazonaws.com/main/scrape";
 
 // Load Grammy nominees data from AWS Lambda Scraper
 async function loadGrammyData() {
 	try {
-		const response = await fetch(grammyLoaderFunctionUrl);
+		const response = await fetch(scraperLambdaUrl);
 		if (!response.ok) {
 			throw new Error(`Failed to load Grammy data: ${response.statusText}`);
 		}
