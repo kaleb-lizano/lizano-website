@@ -7,10 +7,63 @@
 		<link rel="stylesheet" href="style.css" />
 	</head>
 	<body>
-		<h1>Grammy Nominees 2025</h1>
-		<div id="categories"></div>
-		<audio id="audioPlayer" controls style="display: none"></audio>
-		<div id="songMetadata" class="metadata"></div>
+		<div id="main-content">
+			<h1>Grammy Nominees 2025</h1>
+			<div id="categories"></div>
+			<!-- This is where categories and nominees will be displayed -->
+		</div>
+
+		<!-- Fixed player overlay at the bottom of the screen -->
+		<div id="spotify-player">
+			<!-- Column 1: Track artwork and information -->
+			<div id="track-details">
+				<div id="track-image" onclick="openDetailsModal()"></div>
+				<div id="track-info">
+					<h3 id="track-name">Select a song to play</h3>
+					<p id="track-artist">Artist name will appear here</p>
+				</div>
+			</div>
+
+			<!-- Column 2: Audio preview -->
+			<div id="audio-preview">
+				<audio id="audioPlayer" controls style="display: none"></audio>
+			</div>
+
+			<!-- Column 3: Spotify embed container -->
+			<div id="spotify-embed-container">
+				<iframe
+					id="spotify-embed"
+					src=""
+					frameborder="0"
+					allowtransparency="true"
+					allow="encrypted-media"
+				></iframe>
+			</div>
+		</div>
+
+		<!-- Modal for extra song details -->
+		<div id="details-modal" class="modal">
+			<div class="modal-content">
+				<span class="close-button" onclick="closeDetailsModal()">&times;</span>
+				<h3 id="modal-track-name">Song Title</h3>
+				<p>
+					<strong>Artist:</strong>
+					<span id="modal-track-artist">Artist Name</span>
+				</p>
+				<p>
+					<strong>Album:</strong> <span id="modal-album-name">Album Name</span>
+				</p>
+				<p>
+					<strong>Release Date:</strong>
+					<span id="modal-release-date">Release Date</span>
+				</p>
+				<p>
+					<strong>Popularity:</strong>
+					<span id="modal-popularity">Popularity Score</span>
+				</p>
+				<img id="modal-track-image" src="" alt="Album Artwork" width="200" />
+			</div>
+		</div>
 
 		<script src="app.js"></script>
 	</body>
