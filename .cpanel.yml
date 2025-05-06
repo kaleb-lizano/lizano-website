@@ -1,12 +1,6 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/example/public_html/
-    - /bin/cp index.html $DEPLOYPATH
-    - /bin/cp style.css $DEPLOYPATH
-    - /bin/cp app.js $DEPLOYPATH
-    - /bin/cp grammy_nominations.json $DEPLOYPATH
-    - /bin/cp -R album-rating $DEPLOYPATH
-    - /bin/cp -R grammies-pick-em $DEPLOYPATH
-    - /bin/cp -R song-battle $DEPLOYPATH
-    - /bin/cp -R song-search $DEPLOYPATH
+    - export DEPLOYPATH=/home/lizardes/
+    - /bin/cp -R /home/lizardes/lizano-website/public_html $DEPLOYPATH
+    - /bin/cp -R /home/lizardes/lizano-website/lib $DEPLOYPATH
