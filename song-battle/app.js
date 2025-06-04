@@ -1,13 +1,12 @@
-const playlistId = "37qhCGDnFrNZXblgdsTWOz"; // Replace with the ID of the playlist you want to use
+const playlistId = "37qhCGDnFrNZXblgdsTWOz";
 const apiGatewayUrl =
-	"https://mmjwhf9u0l.execute-api.us-east-2.amazonaws.com/202409181151/search"; // Replace with your API Gateway URL
+	"https://mmjwhf9u0l.execute-api.us-east-2.amazonaws.com/202409181151/search";
 
 let playlistTracks = [];
 let usedSongs = new Set();
-let lastSelectedSong = null; // To keep track of the last selected song
-let currentPlayingAudio = null; // Track which audio is currently playing
+let lastSelectedSong = null;
+let currentPlayingAudio = null;
 
-// Fetch songs from the Spotify playlist
 async function fetchPlaylistSongs() {
 	const response = await fetch(
 		`${apiGatewayUrl}?action=playlist&playlistId=${playlistId}`
@@ -20,8 +19,8 @@ async function fetchPlaylistSongs() {
 	}
 
 	const data = await response.json();
-	console.log(data); // Log to check if data is correct
-	playlistTracks = data.items.map((item) => item.track); // Extract only the track objects
+	console.log(data);
+	playlistTracks = data.items.map((item) => item.track);
 
 	if (playlistTracks.length < 2) {
 		document.getElementById("results").innerHTML =
@@ -32,15 +31,13 @@ async function fetchPlaylistSongs() {
 	showBattle();
 }
 
-// Get a random unused song from the playlist
 function getRandomSong(excludeSongId = null) {
 	let song;
-	let attempts = 0; // Avoid infinite loops in case of errors
+	let attempts = 0;
 	do {
 		const randomIndex = Math.floor(Math.random() * playlistTracks.length);
 		song = playlistTracks[randomIndex];
 		attempts++;
-		// Avoid selecting the same song or songs already used
 	} while (
 		(excludeSongId && song.id === excludeSongId) ||
 		(usedSongs.has(song.id) && attempts < 100)
@@ -50,7 +47,6 @@ function getRandomSong(excludeSongId = null) {
 	return song;
 }
 
-// Use getRandomSong with exclusion to avoid duplicate songs
 function showBattle() {
 	if (playlistTracks.length - usedSongs.size < 2) {
 		declareWinner(lastSelectedSong);
@@ -58,7 +54,7 @@ function showBattle() {
 	}
 
 	const song1 = getRandomSong();
-	const song2 = getRandomSong(song1.id); // Ensure song2 is different from song1
+	const song2 = getRandomSong(song1.id);
 
 	const songsContainer = document.getElementById("songs");
 	songsContainer.innerHTML = `
@@ -83,7 +79,7 @@ function showBattle() {
 	addAudioListeners("audio1", "audio2");
 	addAudioListeners("audio2", "audio1");
 }
-// Add listeners to check if the other song is playing
+
 function addAudioListeners(audioId, otherAudioId) {
 	const audioElement = document.getElementById(audioId);
 	const otherAudioElement = document.getElementById(otherAudioId);
@@ -95,12 +91,11 @@ function addAudioListeners(audioId, otherAudioId) {
 
 	audioElement.addEventListener("play", () => {
 		if (!otherAudioElement.paused) {
-			otherAudioElement.pause(); // Pause the other audio if it's playing
+			otherAudioElement.pause();
 		}
 	});
 }
 
-// Generate song metadata for display
 function generateSongMetadata(song, audioId) {
 	const previewUrl = song.preview_url
 		? `
@@ -122,14 +117,12 @@ function generateSongMetadata(song, audioId) {
     `;
 }
 
-// Handle when the user selects a song
 function selectSong(selectedSongId, songId) {
 	const otherSongId = selectedSongId === "song1" ? "song2" : "song1";
 	const otherSongElement = document.getElementById(otherSongId);
 
-	lastSelectedSong = songId; // Store the ID of the last selected song
+	lastSelectedSong = songId;
 
-	// Replace the non-selected song with a new random song, unless there are no more songs
 	if (playlistTracks.length - usedSongs.size >= 1) {
 		const newSong = getRandomSong();
 		otherSongElement.innerHTML = `
@@ -146,12 +139,10 @@ function selectSong(selectedSongId, songId) {
             <div id="embed-${otherSongId}"></div>
         `;
 	} else {
-		// If there are no more songs left, declare the winner
 		declareWinner(songId);
 	}
 }
 
-// Declare the winner when no more songs are left
 function declareWinner(songId) {
 	const song = playlistTracks.find((track) => track.id === songId);
 	const songsContainer = document.getElementById("songs");
@@ -169,16 +160,13 @@ function declareWinner(songId) {
 	`;
 }
 
-// Show full song embed when user clicks the "Listen to full song" button
 function showFullSong(songId, songContainerId) {
 	const song = playlistTracks.find((track) => track.id === songId);
 	const embedDiv = document.getElementById(`embed-${songContainerId}`);
 
-	// Generate the Spotify embed player
 	embedDiv.innerHTML = `
         <iframe src="https://open.spotify.com/embed/track/${songId}" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
     `;
 }
 
-// Start the battle when the page loads
 fetchPlaylistSongs();

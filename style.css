@@ -22,6 +22,7 @@ body {
 	padding: 0;
 	text-align: center;
 }
+
 .introduction {
 	padding: 20px;
 	text-align: center;
@@ -36,6 +37,7 @@ body {
 	color: transparent;
 	animation: gradient 30s ease infinite;
 }
+
 #name {
 	font-size: 3rem;
 	margin-bottom: 10px;
@@ -57,6 +59,7 @@ body {
 
 	animation: text-gradient 15s ease infinite;
 }
+
 .project-description {
 	font-size: 1rem;
 
@@ -70,20 +73,24 @@ body {
 	color: transparent;
 	animation: gradient 30s ease infinite;
 }
+
 ul {
 	list-style-type: none;
 	padding: 0;
 }
+
 li {
 	margin: 0;
 	padding: 0;
 }
+
 a {
 	text-decoration: none;
 	color: #ffffff;
 	font-size: 1.5rem;
 	transition: color 0.3s ease;
 }
+
 a:hover {
 	background: linear-gradient(
 		400deg,
@@ -94,6 +101,7 @@ a:hover {
 	background-clip: text;
 	animation: gradient 1.5s ease infinite;
 }
+
 .project-title {
 	font-weight: bold;
 	background: linear-gradient(
@@ -106,9 +114,11 @@ a:hover {
 	color: transparent;
 	animation: gradient 30s ease infinite;
 }
+
 .project-list {
 	padding: 20px;
 }
+
 .project-grid {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -118,6 +128,7 @@ a:hover {
 	padding: 20px;
 	margin: 0 auto;
 }
+
 .project-item {
 	background: rgba(0, 0, 0, 0.25);
 	padding: 20px;
@@ -133,13 +144,16 @@ a:hover {
 	color: #fff;
 	transition: background 0.4s ease;
 }
+
 .project-item:hover {
 	background: rgba(0, 0, 0, 0.5);
 	cursor: pointer;
 }
+
 .appendix {
 	padding: 20px;
 }
+
 footer {
 	font-size: 0.9rem;
 	background: linear-gradient(
@@ -151,27 +165,6 @@ footer {
 	background-clip: text;
 	color: transparent;
 	animation: gradient 30s ease infinite;
-}
-
-@keyframes text-gradient {
-	0% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
-
-@keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
 }
 
 .custom-alert {
@@ -226,6 +219,27 @@ footer {
 	}
 	to {
 		opacity: 0;
+	}
+}
+
+@keyframes text-gradient {
+	0% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
 	}
 }
 

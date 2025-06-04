@@ -58,7 +58,6 @@ body {
 	align-items: center;
 }
 
-/* Album artwork and track info */
 #track-details {
 	flex: 0.25;
 	display: flex;
@@ -87,7 +86,6 @@ body {
 	color: #b3b3b3;
 }
 
-/* Preview button styling */
 #audio-preview {
 	flex: 0.5;
 	justify-content: flex-start;
@@ -95,24 +93,22 @@ body {
 }
 
 #audio-preview audio {
-	height: 35px; /* Adjust height to fit in the player */
+	height: 35px;
 }
 
-/* Spotify embed container */
 #spotify-embed-container {
 	flex: 1;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	max-width: 50%; /* Set a max width to control overflow */
+	max-width: 50%;
 }
 
 #spotify-embed {
 	width: 90%;
-	height: 80px; /* Set a specific height for the embed */
+	height: 80px;
 }
 
-/* Basic modal styling */
 .modal {
 	display: none;
 	position: fixed;

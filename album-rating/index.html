@@ -88,23 +88,18 @@
 						<th>Actions</th>
 					</tr>
 				</thead>
-				<tbody>
-					<!-- Song entries will be inserted here -->
-				</tbody>
+				<tbody></tbody>
 			</table>
 
 			<button onclick="calculateAlbumRating()">Calculate Album Rating</button>
 			<h3 id="albumRatingResult">Album Rating: Not yet calculated</h3>
 			<h3 id="songRatingsResult">Song Ratings (Weighted):</h3>
-			<ul id="songWeightedRatings">
-				<!-- Weighted song ratings will appear here -->
-			</ul>
+			<ul id="songWeightedRatings"></ul>
 		</div>
 
 		<script>
 			let songs = [];
 
-			// Function to convert "mm:ss" format to total seconds
 			function convertDurationToSeconds(duration) {
 				const parts = duration.split(":");
 				const minutes = parseInt(parts[0]);
@@ -112,7 +107,6 @@
 				return minutes * 60 + seconds;
 			}
 
-			// Function to convert seconds back to "mm:ss" format
 			function convertSecondsToDuration(seconds) {
 				const minutes = Math.floor(seconds / 60);
 				const remainingSeconds = seconds % 60;
@@ -145,7 +139,6 @@
 					alert("Please fill out all fields with valid values!");
 				}
 
-				// Clear input fields
 				document.getElementById("songName").value = "";
 				document.getElementById("songDuration").value = "";
 				document.getElementById("songRating").value = "";
@@ -154,7 +147,7 @@
 
 			function updateSongTable() {
 				const tbody = document.querySelector("#songTable tbody");
-				tbody.innerHTML = ""; // Clear table body
+				tbody.innerHTML = "";
 				songs.forEach((song, index) => {
 					const row = `
                 <tr>
@@ -208,7 +201,7 @@
 				songs.forEach((song) => {
 					let songRating = song.rating;
 					if (song.favorite) {
-						songRating *= 1.1; // Increase rating by 10% for favorite songs
+						songRating *= 1.1;
 					}
 					const weight = song.duration / totalDuration;
 					weightedSum += songRating * weight;
@@ -219,7 +212,6 @@
 				});
 
 				if (weightedSum > 100) {
-					// Display album rating
 					document.getElementById(
 						"albumRatingResult"
 					).innerText = `Album Rating: 100 (${weightedSum.toFixed(2)})`;
@@ -229,12 +221,11 @@
 					).innerText = `Album Rating: ${weightedSum.toFixed(2)}`;
 				}
 
-				// Display individual song ratings
 				const songWeightedRatingsList = document.getElementById(
 					"songWeightedRatings"
 				);
 
-				songWeightedRatingsList.innerHTML = ""; // Clear previous list
+				songWeightedRatingsList.innerHTML = "";
 				songRatingsResult.forEach((song) => {
 					const listItem = document.createElement("li");
 					listItem.textContent = `${song.name}: Weighted Rating = ${song.weightedRating}`;

@@ -1,12 +1,10 @@
-// Replace with your Spotify API credentials
 const apiGatewayUrl =
 	"https://mmjwhf9u0l.execute-api.us-east-2.amazonaws.com/202409181151/search";
 
-// Function to search for a song by interacting with your Lambda function via API Gateway
 async function searchSong() {
 	try {
 		const songName = document.getElementById("songName").value;
-		console.log("Searching for song:", songName); // Log the song name
+		console.log("Searching for song:", songName);
 
 		const response = await fetch(
 			`${apiGatewayUrl}?q=${encodeURIComponent(songName)}`
@@ -20,37 +18,33 @@ async function searchSong() {
 		}
 
 		const data = await response.json();
-		console.log("API response data:", data); // Log the full response data
+		console.log("API response data:", data);
 
-		// Check if tracks data is present and is an array
 		if (
 			data.tracks &&
 			Array.isArray(data.tracks.items) &&
 			data.tracks.items.length > 0
 		) {
 			const song = data.tracks.items[0];
-			console.log("First song data:", song); // Log the first song data
-			displaySongMetadata(song); // Call function to display the metadata
+			console.log("First song data:", song);
+			displaySongMetadata(song);
 		} else {
 			console.warn("No tracks found in API response:", data);
 			document.getElementById("results").innerHTML =
 				"<p>No results found. Please try a different search.</p>";
 		}
 	} catch (error) {
-		// Catch any other errors, such as network issues
 		console.error("Error during song search:", error);
 		document.getElementById("results").innerHTML =
 			"<p>An error occurred while searching for the song. Please try again later.</p>";
 	}
 }
 
-// Function to display song metadata in the DOM
 function displaySongMetadata(song) {
 	const resultsDiv = document.getElementById("results");
 
-	// Get the Spotify track URL
 	const trackUrl = song.external_urls.spotify;
-	const previewUrl = song.preview_url; // This is the 30-second preview MP3
+	const previewUrl = song.preview_url;
 
 	resultsDiv.innerHTML = `
         <div class="metadata">
